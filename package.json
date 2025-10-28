@@ -1,0 +1,83 @@
+{
+  "name": "vector-browser",
+  "version": "1.0.0",
+  "description": "A modern Chromium-based desktop web browser built with Electron",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:all": "electron-builder -mwl",
+    "build:portable": "electron-builder --win portable",
+    "dist": "electron-builder"
+  },
+  "keywords": [
+    "browser",
+    "electron",
+    "chromium",
+    "web-browser"
+  ],
+  "author": "Vector Browser Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.vector.browser",
+    "productName": "Vector Browser",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "artifactName": "${productName}-${version}-Setup.${ext}",
+      "sign": null,
+      "signingHashAlgorithms": []
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Vector Browser",
+      "installerIcon": "assets/icon.png",
+      "uninstallerIcon": "assets/icon.png",
+      "installerHeaderIcon": "assets/icon.png",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true,
+      "differentialPackage": false
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-Portable.${ext}"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "pages/**/*",
+      "!**/*.md",
+      "!.gitignore"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "compression": "maximum",
+    "publish": null,
+    "electronDownload": {
+      "cache": "${LOCALAPPDATA}\\electron\\Cache"
+    }
+  }
+}

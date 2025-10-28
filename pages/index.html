@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vector Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme">
+  <!-- Title Bar -->
+  <div class="titlebar">
+    <div class="titlebar-drag-region">
+      <span class="app-title">Vector Browser</span>
+    </div>
+    <div class="window-controls">
+      <button class="window-btn minimize-btn" id="minimizeBtn" title="Minimize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1"></line></svg>
+      </button>
+      <button class="window-btn maximize-btn" id="maximizeBtn" title="Maximize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"></rect></svg>
+      </button>
+      <button class="window-btn close-btn" id="closeBtn" title="Close">
+        <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1"></line><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <div class="tabs-container" id="tabsContainer"></div>
+    <button class="new-tab-btn" id="newTabBtn" title="New Tab">+</button>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="nav-buttons">
+      <button class="nav-btn" id="backBtn" title="Back" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button class="nav-btn" id="forwardBtn" title="Forward" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button class="nav-btn" id="reloadBtn" title="Reload">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M14 8A6 6 0 1 1 2 8M2 3v5h5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button class="nav-btn" id="homeBtn" title="Home">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 6l6-4 6 4v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+    </div>
+    
+    <div class="address-bar-container">
+      <div class="address-bar">
+        <span class="secure-icon" id="secureIcon" title="Connection status">🔒</span>
+        <input type="text" class="url-input" id="urlInput" placeholder="Search or enter URL">
+        <button class="bookmark-btn" id="quickBookmarkBtn" title="Bookmark this page">☆</button>
+      </div>
+      <div class="suggestions-dropdown" id="suggestionsDropdown"></div>
+    </div>
+    
+    <div class="toolbar-buttons">
+      <button class="toolbar-btn" id="bookmarksBtn" title="Bookmarks">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 2h10v12l-5-3-5 3V2z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button class="toolbar-btn" id="downloadsBtn" title="Downloads">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2v8m0 0l3-3m-3 3L5 7m9 5v2H2v-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button class="toolbar-btn" id="historyBtn" title="History">
+        <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"></circle><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"></path></svg>
+      </button>
+      <button class="toolbar-btn" id="settingsBtn" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5" fill="none"></circle><path d="M8 1v2m0 10v2M1 8h2m10 0h2m-2.636-4.95l-1.414 1.414m-5.9 5.9L3.636 11.778m0-7.556l1.414 1.414m5.9 5.9l1.414 1.414" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+      </button>
+      <button class="toolbar-btn" id="hamburgerMenuBtn" title="Menu">
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <line x1="2" y1="4" x2="14" y2="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+          <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+          <line x1="2" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+        </svg>
+      </button>
+      <button class="toolbar-btn theme-toggle" id="themeToggle" title="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor"></circle></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hamburger Menu Dropdown -->
+  <div class="hamburger-menu" id="hamburgerMenu">
+    <div class="menu-header">
+      <span class="menu-title">Menu</span>
+      <button class="menu-close-btn" id="menuCloseBtn" title="Close">×</button>
+    </div>
+    
+    <div class="menu-section">
+      <div class="menu-section-title">File</div>
+      <button class="menu-item" id="menuNewTab">
+        <span>New Tab</span>
+        <span class="menu-shortcut">Ctrl+T</span>
+      </button>
+      <button class="menu-item" id="menuNewWindow">
+        <span>New Window</span>
+        <span class="menu-shortcut">Ctrl+N</span>
+      </button>
+    </div>
+    
+    <div class="menu-separator"></div>
+    
+    <div class="menu-section">
+      <div class="menu-section-title">Edit</div>
+      <button class="menu-item" id="menuUndo">
+        <span>Undo</span>
+        <span class="menu-shortcut">Ctrl+Z</span>
+      </button>
+      <button class="menu-item" id="menuRedo">
+        <span>Redo</span>
+        <span class="menu-shortcut">Ctrl+Y</span>
+      </button>
+      <div class="menu-separator"></div>
+      <button class="menu-item" id="menuSelectAll">
+        <span>Select All</span>
+        <span class="menu-shortcut">Ctrl+A</span>
+      </button>
+    </div>
+    
+    <div class="menu-separator"></div>
+    
+    <div class="menu-section">
+      <div class="menu-section-title">View</div>
+      <button class="menu-item" id="menuReload">
+        <span>Reload</span>
+        <span class="menu-shortcut">Ctrl+R</span>
+      </button>
+      <button class="menu-item" id="menuForceReload">
+        <span>Force Reload</span>
+        <span class="menu-shortcut">Ctrl+Shift+R</span>
+      </button>
+      <div class="menu-separator"></div>
+      <button class="menu-item" id="menuResetZoom">
+        <span>Reset Zoom</span>
+        <span class="menu-shortcut">Ctrl+0</span>
+      </button>
+      <button class="menu-item" id="menuZoomIn">
+        <span>Zoom In</span>
+        <span class="menu-shortcut">Ctrl++</span>
+      </button>
+      <button class="menu-item" id="menuZoomOut">
+        <span>Zoom Out</span>
+        <span class="menu-shortcut">Ctrl+-</span>
+      </button>
+      <div class="menu-separator"></div>
+      <button class="menu-item" id="menuToggleFullscreen">
+        <span>Toggle Fullscreen</span>
+        <span class="menu-shortcut">F11</span>
+      </button>
+    </div>
+    
+    <div class="menu-separator"></div>
+    
+    <div class="menu-section">
+      <div class="menu-section-title">History</div>
+      <button class="menu-item" id="menuShowHistory">
+        <span>Show History</span>
+      </button>
+      <button class="menu-item" id="menuClearHistory">
+        <span>Clear History</span>
+      </button>
+    </div>
+    
+    <div class="menu-separator"></div>
+    
+    <div class="menu-section">
+      <div class="menu-section-title">Bookmarks</div>
+      <button class="menu-item" id="menuShowBookmarks">
+        <span>Show Bookmarks</span>
+        <span class="menu-shortcut">Ctrl+Shift+B</span>
+      </button>
+      <button class="menu-item" id="menuBookmarkPage">
+        <span>Bookmark This Page</span>
+        <span class="menu-shortcut">Ctrl+D</span>
+      </button>
+    </div>
+    
+    <div class="menu-separator"></div>
+    
+    <div class="menu-section">
+      <button class="menu-item menu-item-danger" id="menuExit">
+        <span>Exit</span>
+        <span class="menu-shortcut">Alt+F4</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area" id="contentArea">
+    <!-- Webviews will be dynamically inserted here -->
+  </div>
+
+  <!-- Modals -->
+  
+  <!-- Bookmarks Modal -->
+  <div class="modal" id="bookmarksModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Bookmarks</h2>
+        <button class="close-modal" data-modal="bookmarksModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="bookmarksList" class="bookmarks-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div class="modal" id="historyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Browsing History</h2>
+        <button class="close-modal" data-modal="historyModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="history-controls">
+          <input type="text" id="historySearch" placeholder="Search history...">
+          <button class="btn-danger" id="clearHistoryBtn">Clear All History</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Downloads Modal -->
+  <div class="modal" id="downloadsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Downloads</h2>
+        <button class="close-modal" data-modal="downloadsModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="downloadsList" class="downloads-list">
+          <p class="empty-state">No downloads yet</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal" id="settingsModal">
+    <div class="modal-content settings-modal">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <button class="close-modal" data-modal="settingsModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-section">
+          <h3>Appearance</h3>
+          <div class="setting-item">
+            <label for="themeSelect">Theme:</label>
+            <select id="themeSelect">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Homepage</h3>
+          <div class="setting-item">
+            <label for="homepageInput">Homepage URL:</label>
+            <input type="text" id="homepageInput" placeholder="vector://home">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Search Engine</h3>
+          <div class="setting-item">
+            <label for="searchEngineInput">Search URL:</label>
+            <input type="text" id="searchEngineInput" placeholder="https://www.google.com/search?q=">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Session</h3>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="restoreSessionCheck">
+              Restore tabs on startup
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Privacy</h3>
+          <div class="setting-item">
+            <button class="btn" id="clearCacheBtn">Clear Cache</button>
+            <button class="btn" id="clearCookiesBtn">Clear All Cookies</button>
+            <button class="btn" id="viewCookiesBtn">View Cookies</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>About</h3>
+          <div class="about-info">
+            <p><strong>Vector Browser</strong></p>
+            <p class="version-text">Version 1.0.0 (Beta Version, not for production use, use at your own risk)</p>
+            <p>A modern Web Browser created just for a seamless browsing experience.</p>
+            <p>More updates coming soon!</p>
+            <p class="about-creator">Created by <strong>Sarthak Chakraborty</strong></p>
+            <p>For Feedback or any queries, Contact: <a href="mailto:sarthak@vacantvectors.com" class="contact-link">sarthak@vacantvectors.com</a></p>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookies Modal -->
+  <div class="modal" id="cookiesModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Cookies</h2>
+        <button class="close-modal" data-modal="cookiesModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="cookiesList" class="cookies-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Cookies Modal (for lock icon) -->
+  <div class="modal" id="siteCookiesModal">
+    <div class="modal-content site-cookies-modal">
+      <div class="modal-header">
+        <h2 id="siteCookiesTitle">Site Cookies</h2>
+        <button class="close-modal" data-modal="siteCookiesModal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="site-cookies-info">
+          <p id="siteCookiesUrl"></p>
+        </div>
+        <div id="siteCookiesList" class="cookies-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
