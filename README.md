@@ -10,7 +10,7 @@
 
 **A Modern, Feature-Rich Chromium-Based Desktop Web Browser Built with Electron**
 
-[Features](#-features) • [Screenshots](#-screenshots) • [Installation](#-installation) • [Build](#-build-from-source) • [Architecture](#-architecture) • [Contributing](#-contributing)
+[Features](#-features) • [Installation](#-installation) • [Build](#-build-from-source) • [Architecture](#-architecture) • [Contributing](#-contributing)
 
 </div>
 
@@ -256,9 +256,6 @@ The build is configured in `package.json` under the `build` section:
 | `Ctrl+Minus` | Zoom Out |
 | `Ctrl+0` | Reset Zoom |
 
-## 📸 Screenshots
-
-> *Add screenshots here showcasing the browser's UI, features, and functionality*
 
 ## 🎯 Key Technical Highlights
 
