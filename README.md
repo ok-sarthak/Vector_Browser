@@ -18,7 +18,7 @@
 
 ## 📖 Overview
 
-Vector Browser is a modern, lightweight web browser built on the Electron framework, leveraging Chromium's powerful rendering engine. Designed with user experience and privacy in mind, Vector Browser offers a seamless browsing experience with advanced features like private browsing, bookmark management, download tracking, and comprehensive cookie control.
+Vector Browser is a modern, lightweight web browser built on the Electron framework, leveraging Chromium's powerful rendering engine. Designed with user experience and privacy in mind, Vector Browser offers a seamless browsing experience with advanced features like bookmark management, download tracking, and comprehensive cookie control.
 
 This project demonstrates advanced Electron development techniques, including custom UI implementation, IPC (Inter-Process Communication), session management, and webview integration.
 
@@ -33,11 +33,9 @@ This project demonstrates advanced Electron development techniques, including cu
 - **Error Handling**: Custom error pages with detailed error information
 
 ### 🔐 Privacy & Security
-- **Private Browsing Mode**: Isolated sessions with no history tracking
 - **Cookie Management**: View, inspect, and delete cookies per domain
 - **Cache Control**: Clear browser cache on demand
 - **Secure Downloads**: Dedicated download folder with progress tracking
-- **Session Isolation**: Separate sessions for regular and private windows
 
 ### 📚 Data Management
 - **Bookmark System**: 
@@ -177,8 +175,7 @@ All user data is stored in JSON format in the Electron userData directory:
 1. **Context Isolation**: Enabled for all webviews and windows
 2. **Node Integration**: Disabled in renderer processes
 3. **Preload Script**: Controlled API exposure via contextBridge
-4. **Session Partitioning**: Separate sessions for private windows
-5. **Content Security**: Each tab runs in isolated webview
+4. **Content Security**: Each tab runs in isolated webview
 
 ## 🚀 Installation
 
