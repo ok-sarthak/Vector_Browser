@@ -327,6 +327,37 @@ function setupEventListeners() {
     }
   });
   
+  // Ad blocker controls
+  document.getElementById('refreshAdBlockBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('refreshAdBlockBtn');
+    const status = document.getElementById('adBlockStatus');
+    
+    btn.disabled = true;
+    btn.textContent = '🛡️ Refreshing...';
+    status.textContent = 'Downloading latest filter list...';
+    status.className = 'adblock-status loading';
+    
+    try {
+      const result = await window.electronAPI.refreshAdBlockList();
+      if (result.success) {
+        status.textContent = `✓ Successfully loaded ${result.count} blocking rules`;
+        status.className = 'adblock-status success';
+        setTimeout(() => {
+          status.textContent = '';
+        }, 5000);
+      } else {
+        status.textContent = `✗ Failed to refresh: ${result.error}`;
+        status.className = 'adblock-status error';
+      }
+    } catch (error) {
+      status.textContent = `✗ Error: ${error.message}`;
+      status.className = 'adblock-status error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🛡️ Refresh Ad Blocker';
+    }
+  });
+  
   // Settings controls
   document.getElementById('themeSelect').addEventListener('change', (e) => {
     applyTheme(e.target.value);

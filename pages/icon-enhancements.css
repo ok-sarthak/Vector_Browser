@@ -1,0 +1,246 @@
+/* Icon Enhancement Styles */
+
+/* Theme Toggle Animation */
+.theme-toggle {
+  position: relative;
+}
+
+.theme-toggle .theme-icon {
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: rotate(180deg) scale(1.1);
+}
+
+.dark-theme .theme-toggle .theme-icon {
+  transform: rotate(0deg);
+}
+
+.light-theme .theme-toggle .theme-icon {
+  transform: rotate(0deg);
+}
+
+/* Bookmark Star Animation */
+.bookmark-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 18px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.bookmark-btn:hover {
+  transform: scale(1.2) rotate(15deg);
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.bookmark-btn.bookmarked {
+  color: #ffd700;
+  font-size: 18px;
+}
+
+.bookmark-btn.bookmarked:hover {
+  transform: scale(1.1) rotate(-15deg);
+}
+
+/* Secure Icon Enhancement */
+.secure-icon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.address-bar:focus-within .secure-icon {
+  transform: scale(1.1);
+}
+
+/* Reload Button Spin Animation */
+@keyframes spin-reload {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#reloadBtn.loading svg {
+  animation: spin-reload 1s linear infinite;
+}
+
+/* Icon Glow Effects on Hover */
+.nav-btn:hover,
+.toolbar-btn:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2),
+              0 4px 12px rgba(0,0,0,0.12), 
+              0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* New Tab Button Special Style */
+.new-tab-btn {
+  font-weight: 300;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.new-tab-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.new-tab-btn:hover::before {
+  opacity: 1;
+}
+
+.new-tab-btn:active {
+  transform: scale(0.9) rotate(90deg);
+}
+
+/* Tab Close Button Animation */
+.tab-close {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-close:hover {
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* Hamburger Menu Icon Animation */
+#hamburgerMenuBtn svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#hamburgerMenuBtn:hover svg {
+  transform: scale(1.08);
+}
+
+#hamburgerMenuBtn.active svg {
+  transform: rotate(90deg) scale(1.05);
+}
+
+/* Settings Gear Animation */
+#settingsBtn:hover svg {
+  animation: rotate-gear 2s linear infinite;
+}
+
+@keyframes rotate-gear {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Downloads Icon Bounce */
+#downloadsBtn:hover svg {
+  animation: bounce-down 0.6s ease;
+}
+
+@keyframes bounce-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+  75% {
+    transform: translateY(-1px);
+  }
+}
+
+/* History Clock Animation */
+#historyBtn:hover svg path:last-child {
+  animation: clock-tick 4s linear infinite;
+  transform-origin: 9px 9px;
+}
+
+@keyframes clock-tick {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Home Icon Pulse */
+#homeBtn:hover svg {
+  animation: pulse-home 1s ease-in-out infinite;
+}
+
+@keyframes pulse-home {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Bookmarks Icon Float */
+#bookmarksBtn:hover svg {
+  animation: float-bookmark 2s ease-in-out infinite;
+}
+
+@keyframes float-bookmark {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Back/Forward Button Enhanced Hover */
+#backBtn:not(:disabled):hover svg,
+#forwardBtn:not(:disabled):hover svg {
+  transform: scale(1.1) translateX(-2px);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+#forwardBtn:not(:disabled):hover svg {
+  transform: scale(1.1) translateX(2px);
+}
+
+/* Tab Favicon Loading Animation */
+.tab-favicon.loading {
+  animation: favicon-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes favicon-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+/* Icon Shadow Enhancement for Dark Theme */
+.dark-theme .nav-btn:hover svg,
+.dark-theme .toolbar-btn:hover svg {
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+}
+
+/* Icon Shadow Enhancement for Light Theme */
+.light-theme .nav-btn:hover svg,
+.light-theme .toolbar-btn:hover svg {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+}

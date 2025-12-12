@@ -92,6 +92,7 @@ body {
   justify-content: space-between;
   border-bottom: 1px solid var(--glass-border);
   -webkit-app-region: drag;
+  -webkit-user-select: none;
   user-select: none;
   border-radius: 0;
   box-shadow: 0 2px 12px var(--shadow), 0 1px 3px rgba(0,0,0,0.05);
@@ -137,20 +138,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.window-btn svg {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .window-btn:hover {
   background: var(--hover-bg);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.window-btn:hover svg {
+  transform: scale(1.1);
 }
 
 .close-btn:hover {
-  background: rgba(232, 17, 35, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(232, 17, 35, 0.9);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: white;
+}
+
+.close-btn:hover svg {
+  transform: scale(1.15) rotate(90deg);
 }
 
 /* Tab Bar */
@@ -383,8 +397,8 @@ body {
 }
 
 .nav-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border: none;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -397,6 +411,42 @@ body {
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-btn:hover::before {
+  opacity: 1;
+}
+
+.nav-btn:hover {
+  background: var(--hover-bg);
+  transform: scale(1.08) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.nav-btn:hover svg {
+  transform: scale(1.05);
+}
+
+.nav-btn svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .nav-btn:hover:not(:disabled) {
@@ -584,12 +634,12 @@ body {
 }
 
 .toolbar-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border: none;
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: var(--text-primary);
   cursor: pointer;
   border-radius: 50%;
@@ -598,12 +648,42 @@ body {
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.toolbar-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.toolbar-btn:hover::before {
+  opacity: 1;
 }
 
 .toolbar-btn:hover {
   background: var(--hover-bg);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px var(--shadow);
+  transform: scale(1.08) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.toolbar-btn:hover svg {
+  transform: scale(1.05);
+}
+
+.toolbar-btn svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toolbar-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* Content Area */
@@ -986,20 +1066,84 @@ webview.active {
 .downloads-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
-.download-item {
+/* Downloads controls */
+.downloads-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
   padding: 16px;
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.adblock-status {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.adblock-status.loading {
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.1);
+  border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.adblock-status.success {
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+  border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.adblock-status.error {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.download-item {
+  padding: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.download-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.download-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--shadow), 0 6px 12px rgba(0,0,0,0.12);
+  border-color: rgba(102, 126, 234, 0.3);
 }
 
 .download-item::before {
@@ -1023,69 +1167,71 @@ webview.active {
   opacity: 1;
 }
 
-.download-header {
+.download-info {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .download-name {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.download-size {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-.download-progress {
-  height: 4px;
-  background: var(--bg-tertiary);
-  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
   overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.download-progress-bar {
-  height: 6px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 8px 0;
-}
-
-.download-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #3a3a3a 0%, #6a6a6a 100%);
-  transition: width 0.3s;
-  border-radius: 8px;
-}
-
-.download-info {
-  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .download-status {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-secondary);
-  margin-top: 4px;
+  font-weight: 500;
 }
 
 .download-path {
   font-size: 11px;
-  color: var(--text-tertiary);
-  margin-top: 2px;
+  color: var(--text-secondary);
+  opacity: 0.7;
   font-family: 'Courier New', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.download-progress-bar {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.download-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .download-actions {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 /* Settings */
