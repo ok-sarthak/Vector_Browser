@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/icon.png" alt="Vector Browser Logo" width="150" height="150" style="border-radius: 24px; display: block; background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%); padding: 20px; border-radius: 24px;">
+<img src="assets/icon.png" alt="Vector Browser Logo" width="150" height="150" style="border-radius: 24px">
 
 # Vector Browser
 
