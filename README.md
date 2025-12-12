@@ -398,6 +398,6 @@ Perfect for learning, portfolio showcasing, or as a foundation for custom browse
 
 **Made by Sarthak Chakraborty**
 
-[⬆ Back to Top](#-vector-browser)
+[⬆ Back to Top](#vector-browser)
 
 </div>
