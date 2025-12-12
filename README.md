@@ -1,11 +1,10 @@
 <div align="center">
 
-<img src="assets/icon.png" alt="Vector Browser Logo" width="150" height="150" style="border-radius: 24px; display: block;">
+<img src="assets/icon.png" alt="Vector Browser Logo" width="150" height="150" style="border-radius: 24px; display: block; background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%); padding: 20px; border-radius: 24px;">
 
 # Vector Browser
 
 ![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Electron](https://img.shields.io/badge/Electron-28.0.0-47848F.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D6.svg)
 
@@ -350,10 +349,6 @@ const result = await window.electronAPI.newFeature(data);
 - There might be many Security Issues
 - Save page feature is not yet implemented
 
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
