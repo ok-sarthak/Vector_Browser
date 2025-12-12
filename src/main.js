@@ -52,72 +52,6 @@ function createWindow(isPrivate = false) {
 
   win.loadFile(path.join(__dirname, '../pages/index.html'));
 
-  // Handle downloads
-  win.webContents.session.on('will-download', (event, item, webContents) => {
-    // Set custom download path - Vector Browser Downloads folder
-    const vectorDownloadsPath = path.join(app.getPath('downloads'), 'Vector Browser');
-    
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(vectorDownloadsPath)) {
-      fs.mkdirSync(vectorDownloadsPath, { recursive: true });
-    }
-    
-    const fileName = item.getFilename();
-    const savePath = path.join(vectorDownloadsPath, fileName);
-    
-    item.setSavePath(savePath);
-    
-    // Send download started event to renderer
-    win.webContents.send('download-started', {
-      id: item.getStartTime(),
-      fileName: fileName,
-      totalBytes: item.getTotalBytes(),
-      savePath: savePath
-    });
-    
-    // Track download progress
-    item.on('updated', (event, state) => {
-      if (state === 'interrupted') {
-        win.webContents.send('download-progress', {
-          id: item.getStartTime(),
-          state: 'interrupted'
-        });
-      } else if (state === 'progressing') {
-        if (item.isPaused()) {
-          win.webContents.send('download-progress', {
-            id: item.getStartTime(),
-            state: 'paused'
-          });
-        } else {
-          const progress = (item.getReceivedBytes() / item.getTotalBytes()) * 100;
-          win.webContents.send('download-progress', {
-            id: item.getStartTime(),
-            state: 'progressing',
-            progress: progress,
-            receivedBytes: item.getReceivedBytes(),
-            totalBytes: item.getTotalBytes()
-          });
-        }
-      }
-    });
-    
-    item.once('done', (event, state) => {
-      if (state === 'completed') {
-        win.webContents.send('download-completed', {
-          id: item.getStartTime(),
-          fileName: fileName,
-          savePath: savePath
-        });
-      } else {
-        win.webContents.send('download-failed', {
-          id: item.getStartTime(),
-          fileName: fileName,
-          error: state
-        });
-      }
-    });
-  });
-
   // Set up menu
   const menuTemplate = [
     {
@@ -161,8 +95,16 @@ function createWindow(isPrivate = false) {
     {
       label: 'View',
       submenu: [
-        { role: 'reload' },
-        { role: 'forceReload' },
+        {
+          label: 'Reload',
+          accelerator: 'CmdOrCtrl+R',
+          click: () => { win.webContents.send('reload-page'); }
+        },
+        {
+          label: 'Force Reload',
+          accelerator: 'CmdOrCtrl+Shift+R',
+          click: () => { win.webContents.send('force-reload-page'); }
+        },
         { role: 'toggleDevTools' },
         { type: 'separator' },
         { role: 'resetZoom' },

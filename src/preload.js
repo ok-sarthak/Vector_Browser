@@ -49,7 +49,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       'new-tab', 'show-history', 'clear-history', 
       'show-bookmarks', 'bookmark-page', 'save-session-before-quit',
       'open-url-in-new-tab', 'download-started', 'download-progress',
-      'download-completed', 'download-failed'
+      'download-completed', 'download-failed', 'reload-page', 'force-reload-page'
     ];
     if (validChannels.includes(channel)) {
       // Wrap callback to properly pass arguments
